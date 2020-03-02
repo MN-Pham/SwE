@@ -1,84 +1,23 @@
 #include <iostream>
-
-using namespace std;
-
-class RotationMotor{
-    public:
-        RotationMotor(float inRPM=0.0);
-        ~RotationMotor();
-        void start();
-        void restart();
-        void shutdown();
-        void incRPM();
-        void decRPM();
-        const float getRPM();
-    private:
-        float RPM;
-        static constexpr float MAXPOS = 20.0;
-        static constexpr float MINNEG = -20.0;
-        static constexpr float STEP = 5.0;
-};
-
-RotationMotor::RotationMotor(float inRPM):RPM(inRPM){
-    cout<<"Motor has been generated!"<<endl;
-    cout<<"RPM = "<<RPM<<endl;
-}
-
-RotationMotor::~RotationMotor(){
-    cout<<"Motor has been removed!"<<endl;
-}
-
-void RotationMotor::start(){
-    cout<<"Motor has been started"<<endl;
-    RPM = 2.5;
-    cout<<"RPM = "<<RPM<<endl;
-}
-
-const float RotationMotor::getRPM(){
-    return RPM;
-}
-
-void RotationMotor::restart(){
-    RPM = 0;
-    cout<<"Motor has been restarted"<<endl;
-}
-
-void RotationMotor::shutdown(){
-    RPM = 0;
-    cout<<"Shutting down..."<<endl;
-}
-
-void RotationMotor::incRPM(){
-    if ((RPM+STEP)<=MAXPOS)
-        RPM+=STEP;
-    else RPM=MAXPOS;
-    cout<<"RPM has been increased"<<endl;
-}
-
-void RotationMotor::decRPM(){
-    if ((RPM-STEP)>=MINNEG)
-        RPM-=STEP;
-    else RPM=MINNEG;
-    cout<<"RPM has been decreased"<<endl;
-}
+#include "Motor.h"
 
 bool motorOn = false;
 
 int main(){
     RotationMotor myMotor;
-    string command;
+    std::string command;
 
-    cout<<"Supported commands are:\n"
-        <<"\tstart: Start the motor\n"
-        <<"\tshutdown: Turn the program off\n"
-        <<"\trestart: Restart the motor\n"
-        <<"\tincRPM: increase RPM by 5.0\n"
-        <<"\tdecRPM: decrease RPM by 5.0\n"
-        <<"\tgetRPM: get the RPM value\n";
+    std::cout<<"Supported commands are:\n"
+        <<"\tstart     Start the motor\n"
+        <<"\tshutdown  Turn the program off\n"
+        <<"\trestart   Restart the motor\n"
+        <<"\tincRPM    Increase RPM by 5.0\n"
+        <<"\tdecRPM    Decrease RPM by 5.0\n"
+        <<"\tgetRPM    Get the RPM value\n";
 
     while(1){
-        cout<<"Please enter your command:"<<endl;
-        cin>>command;
+      std::cout<<"Please enter your command:"<<std::endl;
+      std::cin>>command;
         if (command=="start"){
             myMotor.start();
             motorOn = true;
@@ -98,10 +37,10 @@ int main(){
             myMotor.decRPM();
         }
         else if ((command=="getRPM")&&motorOn){
-            cout<<"RPM = "<<myMotor.getRPM()<<endl;
+	    std::cout<<"RPM = "<<myMotor.getRPM()<<std::endl;
         }
         else {
-            cerr<<"Command cannot be exceuted. Unvalid command or the motor has not been started yet."<<endl;
+	    std::cerr<<"Command cannot be exceuted. Unvalid command or the motor has not been started yet."<<std::endl;
         }
     }
     return 0;
