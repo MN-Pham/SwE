@@ -1,11 +1,12 @@
 #ifndef DATAFRAME_H
 #define DATAFRAME_H
+#include <array>
 
 class Dataframe{
     public:
 	using dataframe_t = std::array<std::uint8_t, 255>;
-        Dataframe() = default;
-	void setData(const dataframe_t &data, std::uint_8 size);
+        Dataframe();
+	void setData(const dataframe_t &data, std::uint8_t size);
 	void setChecksum();
 	void setDataframe(const dataframe_t &dataframe);
 	dataframe_t getDataframe() const;
@@ -14,7 +15,8 @@ class Dataframe{
 	bool checksumIsCorrect() const;
 	void clear();
     private:
-	dataframe_t data{{0}};
+	dataframe_t frame;
+	int dataSize = 255;
 };
 
 #endif
