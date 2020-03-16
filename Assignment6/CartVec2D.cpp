@@ -9,7 +9,7 @@ std::ostream& operator<<(std::ostream &os, const CartVec2D &rhs) {
 CartVec2D operator-(const CartVec2D &lhs, const CartVec2D &rhs) {
     CartVec2D result;
     result -= rhs;
-    result -= lhs;
+    result += lhs;
     return result;
 }
 
